@@ -141,6 +141,6 @@ return [
     // 显示错误信息
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
-    'exception_handle'       => '\app\libs\exception\ExceptionHandler',//重构异常处理handle类
+    'exception_handle'       => '\app\api\exception\ExceptionHandler',//重构异常处理handle类
 
 ];

@@ -1,9 +1,8 @@
 <?php
 
-namespace app\libs\exception;
+namespace app\api\exception;
 
-class SuccessMessage extends BaseException
-{
+class SuccessMessage extends BaseException {
     public $code = 201;
     public $msg = 'ok';
     public $errorCode = 0;

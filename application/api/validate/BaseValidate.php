@@ -2,7 +2,7 @@
 namespace app\api\validate;
 
 use think\Validate;
-use app\libs\exception\ParameterException;
+use app\api\exception\ParameterException;
 use think\Exception;
 class BaseValidate extends Validate
 {

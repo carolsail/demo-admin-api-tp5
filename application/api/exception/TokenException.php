@@ -1,9 +1,9 @@
 <?php
 
-namespace app\libs\exception;
+namespace app\api\exception;
 
 class TokenException extends BaseException {
     public $code = 401;
+    public $errorCode = 10002;
     public $msg = 'Token已过期或无效Token';
-    public $errorCode = 10001;
 }

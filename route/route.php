@@ -1,11 +1,23 @@
 <?php
-//Miss 404
+
 //Miss 路由开启后，默认的普通模式也将无法访问
 Route::miss('api/v1.Miss/miss');
 
-// banner
-Route::get('api/:version/banner/:id', 'api/:version.Banner/getBanner');
+// token
+Route::group('api/:version/token', function(){
+	Route::post('/get', 'api/:version.Token/get');
+	Route::post('/verify', 'api/:version.Token/verify');
+	Route::get('/current', 'api/:version.Token/current');
+});
 
+// banner
+Route::group('api/:version/banner', function(){
+	Route::get('/index', 'api/:version.Banner/index');
+	Route::post('/create', 'api/:version.Banner/create');
+	Route::post('/edit', 'api/:version.Banner/edit');
+	Route::get('/delete', 'api/:version.Banner/delete');
+	Route::get('/info/:id', 'api/:version.Banner/info');
+});
 
 // product
 Route::group('api/:version/product', function(){
@@ -19,24 +31,6 @@ Route::group('api/:version/product', function(){
 Route::get('api/:version/category/all', 'api/:version.Category/getAllCategories');
 
 
-// token
-Route::group('api/:version/token', function(){
-	//cms应用token
-	Route::post('/app', 'api/:version.Token/getAppToken');
-	//wechat
-	Route::post('/user', 'api/:version.Token/getToken');
-	Route::post('/verify', 'api/:version.Token/verifyToken');
-});
 
 
-// order
-Route::group('api/:version/order', function(){
-	//cms 获取订单列表
-	Route::get('/paginate', 'api/:version.Order/getSummary');	
-	//cms 发货处理
-	Route::put('/delivery', 'api/:version.Order/delivery');
 
-	//小程序
-	Route::post('/', 'api/:version.Order/placeOrder');
-	Route::get('/by_user', 'api/:version.Order/getSummaryByUser');
-});

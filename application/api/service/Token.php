@@ -1,10 +1,10 @@
 <?php 
 namespace app\api\service;
 
-use app\libs\exception\TokenException;
-use app\libs\exception\ForbiddenException;
+use app\api\exception\TokenException;
+use app\api\exception\ForbiddenException;
 use think\Exception;
-use app\libs\enum\ScopeEnum;
+use app\api\enum\ScopeEnum;
 
 class Token {
 
@@ -28,7 +28,7 @@ class Token {
             if(array_key_exists($key, $vars)){
             	return $vars[$key];
             }else{
-				throw new Exception('尝试获取的Token变量并不存在');
+				throw new TokenException(['msg'=>'尝试获取的Token变量并不存在']);
             }
 		}
 	}
@@ -43,20 +43,6 @@ class Token {
 		$scope = self::getCurrentTokenVar('scope');
 		if($scope){
 			if($scope==ScopeEnum::Super){
-				return true;
-			}else{
-				throw new ForbiddenException();
-			}
-		}else{
-			throw new TokenException();
-		}
-	}
-
-	// 用户（小程序）专有权限
-	public static function needExclusiveScope(){
-		$scope = self::getCurrentTokenVar('scope');
-		if($scope){
-			if($scope == ScopeEnum::User){
 				return true;
 			}else{
 				throw new ForbiddenException();
@@ -105,8 +91,36 @@ class Token {
 		if($uid == $checkedUID){
 			return true;
 		}
-
 		return false;
 	}
 	
+	/**
+     * 从缓存中获取当前用户指定身份标识
+     * @param array $keys
+     * @return array result
+     * @throws \app\lib\exception\TokenException
+     */
+    public static function getCurrentIdentity($keys)
+    {
+        $token = request()->header('token');
+        $identities = cache($token);
+        if (!$identities)
+        {
+            throw new TokenException();
+        }
+        else
+        {
+            $identities = json_decode($identities, true);
+            $result = [];
+            foreach ($keys as $key)
+            {
+                if (array_key_exists($key, $identities))
+                {
+                    $result[$key] = $identities[$key];
+                }
+            }
+            return $result;
+        }
+    }
+
 }

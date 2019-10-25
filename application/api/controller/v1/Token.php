@@ -2,51 +2,42 @@
 namespace app\api\controller\v1;
 
 use app\api\controller\BaseController;
-use app\api\validate\AppTokenGet;
-use app\api\validate\TokenGet;
+use app\api\validate\Token as TokenValidate;
+use app\api\service\Account;
 use app\api\service\Token as TokenService;
-use app\api\service\AppToken;
-use app\api\service\UserToken;
-use app\libs\exception\ParameterException;
+use app\api\exception\ParameterException;
 
 class Token extends BaseController {
 	
 	/**
-     * 第三方应用获取令牌(cms)
+     * 登录生成token
      * @url /app_token?
-     * @POST ac=:account se=:secret
+     * @POST account && password
      */
-	public function getAppToken($ac='', $se=''){
-		(new AppTokenGet())->goCheck();
-		$token = (new AppToken())->getToken($ac, $se);
+	public function get(){
+		(new TokenValidate())->goCheck();
+		$token = (new Account())->createToken();
 		return json(['token'=>$token]);
 	}
-
-
-	/**
-	 * 用户获取令牌（wechat）
-     * @url /token
-     * @POST code
-     * @note 虽然查询应该使用get，但为了稍微增强安全性，所以使用POST
-	 */
-	public function getToken($code = ''){
-		(new TokenGet())->goCheck();
-		$token = (new UserToken($code))->getToken();
-		return json(['token'=>$token]);
-	}	
 
 	/**
 	 * 验证token是否存在
 	 */
-	public function verifyToken($token = ''){
+	public function verify($token = ''){
         if(!$token){
-            throw new ParameterException([
-                'token不允许为空'
-            ]);
+            throw new ParameterException();
         }
-
         $valid = TokenService::verifyToken($token);
         return json(['isValid' => $valid]);
+	}
+
+	/**	
+	 * 获取当前token用户登录信息
+	 */
+	public function current(){
+		$keys = ['account', 'name', 'email', 'mobile', 'scope'];
+		$res = TokenService::getCurrentIdentity($keys);
+		return json($res);
 	}
 
 }

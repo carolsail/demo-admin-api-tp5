@@ -1,20 +1,26 @@
 <?php
-// api局部公共函数
+// 随机字符
 function getRandChar($length)
 {
     $str = null;
     $strPol = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
     $max = strlen($strPol) - 1;
-
     for ($i = 0;
          $i < $length;
          $i++) {
         $str .= $strPol[rand(0, $max)];
     }
-
     return $str;
 }
 
+
+//密碼去空格加密處理
+if (!function_exists('md5_trim_pwd')) {
+    function md5_trim_pwd($pwd)
+    {
+        return md5(config('setting.encryption_key').trim($pwd));
+    }
+}
 
 /**
  * @param string $url get请求地址
@@ -35,3 +41,5 @@ function curl_get($url, &$httpCode = 0)
     curl_close($ch);
     return $file_contents;
 }
+
+

@@ -1,9 +1,9 @@
 <?php
 
-namespace app\libs\exception;
+namespace app\api\exception;
 
 class ParameterException extends BaseException {
 	public $code = 400;
     public $errorCode = 10000;
-    public $msg = "invalid parameters";
+    public $msg = "参数不合法";
 }
