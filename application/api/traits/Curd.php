@@ -18,14 +18,24 @@ trait Curd
         return $flag;
     }
 
+    /** 
+     * get
+     * query string param：
+     * sort: id
+     * order: desc
+     * offset: 0
+     * limit: 10
+     * filter: {"username":"132"}
+     * op: {"username":"LIKE"}
+     */
     public function index()
     {
         list($where, $sort, $order, $offset, $limit) = $this->buildparams();
         $total = $this->model->where($where)->count();
         $lists = $this->model->where($where)->order($sort, $order)->limit($offset, $limit)->select();
 
-        if ($this->isExtend('indexAjax')) {
-            $lists = $this->repository->indexAjax($lists);
+        if ($this->isExtend('index')) {
+            $lists = $this->repository->index($lists);
         }
         $result = array("total" => $total, "rows" => $lists);
         return json($result);
