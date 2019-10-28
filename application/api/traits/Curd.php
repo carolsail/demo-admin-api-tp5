@@ -18,6 +18,14 @@ trait Curd
         return $flag;
     }
 
+    /**
+     * sort: id
+     * order: desc
+     * offset: 0
+     * limit: 10
+     * filter: {'name': 'test'}
+     * op: {'name': 'like'}
+     */
     public function index()
     {
         list($where, $sort, $order, $offset, $limit) = $this->buildparams();
@@ -61,7 +69,7 @@ trait Curd
                 $this->repository->edit($params);
             } else {
                 $row = $this->model->get($params['id']);
-                if(!$row){
+                if (!$row) {
                     throw new ParameterException();
                 }
                 $row->allowField(true)->force()->save($params);
@@ -93,7 +101,7 @@ trait Curd
     {
         (new IDMustBeInt())->goCheck();
         $row = $this->model->find($id);
-        if(!$row){
+        if (!$row) {
             throw new MissException();
         }
         return $row;
