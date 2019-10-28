@@ -121,6 +121,18 @@ class Token {
             }
             return $result;
         }
-    }
-
+	}
+	
+	/**	
+	 * token 销毁
+	 */
+	public static function tokenClear(){
+        $token = request()->header('token');
+        if(cache($token)){
+			cache($token, Null);
+			return true;
+		}else{
+			throw new TokenException();
+		}
+	}
 }

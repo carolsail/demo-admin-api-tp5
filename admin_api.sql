@@ -1,19 +1,44 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : tencent
-Source Server Version : 50721
-Source Host           : 118.24.61.38:3306
-Source Database       : api_server
+Source Server         : localhost_3306
+Source Server Version : 50547
+Source Host           : localhost:3306
+Source Database       : admin_api
 
 Target Server Type    : MYSQL
-Target Server Version : 50721
+Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2019-10-08 16:06:03
+Date: 2019-10-28 17:03:05
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `account`
+-- ----------------------------
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE `account` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(32) DEFAULT NULL,
+  `account` varchar(32) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `name` varchar(32) DEFAULT NULL,
+  `scope` varchar(32) DEFAULT NULL,
+  `avatar` text,
+  `email` varchar(32) DEFAULT NULL,
+  `mobile` varchar(32) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
+  `update_time` int(11) DEFAULT NULL,
+  `delete_time` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+
+-- ----------------------------
+-- Records of account
+-- ----------------------------
+INSERT INTO `account` VALUES ('1', 'admin', 'admin', 'd779fa52b55d856d871ec5f4bcbe996f', 'sail', '32', null, 'admin@test.com', '12345678', null, null, null);
 
 -- ----------------------------
 -- Table structure for `banner`
@@ -23,38 +48,22 @@ CREATE TABLE `banner` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL COMMENT 'Banner名称，通常作为标识',
   `description` varchar(255) DEFAULT NULL COMMENT 'Banner描述',
-  `delete_time` int(11) DEFAULT NULL,
+  `img` text,
+  `url` text,
+  `sort` int(11) DEFAULT NULL,
+  `create_time` int(11) DEFAULT NULL,
   `update_time` int(11) DEFAULT NULL,
+  `delete_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='banner管理表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='banner管理表';
 
 -- ----------------------------
 -- Records of banner
 -- ----------------------------
-INSERT INTO `banner` VALUES ('1', '首页置顶', '首页轮播图', null, null);
-
--- ----------------------------
--- Table structure for `banner_item`
--- ----------------------------
-DROP TABLE IF EXISTS `banner_item`;
-CREATE TABLE `banner_item` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `img_id` int(11) NOT NULL COMMENT '外键，关联image表',
-  `key_word` varchar(100) NOT NULL COMMENT '执行关键字，根据不同的type含义不同',
-  `type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '跳转类型，可能导向商品，可能导向专题，可能导向其他。0，无导向；1：导向商品;2:导向专题',
-  `delete_time` int(11) DEFAULT NULL,
-  `banner_id` int(11) NOT NULL COMMENT '外键，关联banner表',
-  `update_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='banner子项表';
-
--- ----------------------------
--- Records of banner_item
--- ----------------------------
-INSERT INTO `banner_item` VALUES ('1', '65', '6', '1', null, '1', null);
-INSERT INTO `banner_item` VALUES ('2', '2', '25', '1', null, '1', null);
-INSERT INTO `banner_item` VALUES ('3', '3', '11', '1', null, '1', null);
-INSERT INTO `banner_item` VALUES ('5', '1', '10', '1', null, '1', null);
+INSERT INTO `banner` VALUES ('1', '首页置顶', '首页轮播图', null, null, null, null, '1571997058', '1571997058');
+INSERT INTO `banner` VALUES ('2', '111', '111des', null, null, null, '1571996398', '1571997061', '1571997061');
+INSERT INTO `banner` VALUES ('3', '2gg', 'ggdesgg11', null, null, null, '1571996574', '1571996574', null);
+INSERT INTO `banner` VALUES ('4', '222', '221des', null, null, null, '1571996595', '1571996595', null);
 
 -- ----------------------------
 -- Table structure for `category`
@@ -79,84 +88,6 @@ INSERT INTO `category` VALUES ('4', '炒货', '7', null, null, null);
 INSERT INTO `category` VALUES ('5', '点心', '4', null, null, null);
 INSERT INTO `category` VALUES ('6', '粗茶', '8', null, null, null);
 INSERT INTO `category` VALUES ('7', '淡饭', '9', null, null, null);
-
--- ----------------------------
--- Table structure for `image`
--- ----------------------------
-DROP TABLE IF EXISTS `image`;
-CREATE TABLE `image` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `url` varchar(255) NOT NULL COMMENT '图片路径',
-  `from` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1 来自本地，2 来自公网',
-  `delete_time` int(11) DEFAULT NULL,
-  `update_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8mb4 COMMENT='图片总表';
-
--- ----------------------------
--- Records of image
--- ----------------------------
-INSERT INTO `image` VALUES ('1', '/banner-1a.png', '1', null, null);
-INSERT INTO `image` VALUES ('2', '/banner-2a.png', '1', null, null);
-INSERT INTO `image` VALUES ('3', '/banner-3a.png', '1', null, null);
-INSERT INTO `image` VALUES ('4', '/category-cake.png', '1', null, null);
-INSERT INTO `image` VALUES ('5', '/category-vg.png', '1', null, null);
-INSERT INTO `image` VALUES ('6', '/category-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('7', '/category-fry-a.png', '1', null, null);
-INSERT INTO `image` VALUES ('8', '/category-tea.png', '1', null, null);
-INSERT INTO `image` VALUES ('9', '/category-rice.png', '1', null, null);
-INSERT INTO `image` VALUES ('10', '/product-dryfruit@1.png', '1', null, null);
-INSERT INTO `image` VALUES ('13', '/product-vg@1.png', '1', null, null);
-INSERT INTO `image` VALUES ('14', '/product-rice@6.png', '1', null, null);
-INSERT INTO `image` VALUES ('16', '/1@theme.png', '1', null, null);
-INSERT INTO `image` VALUES ('17', '/2@theme.png', '1', null, null);
-INSERT INTO `image` VALUES ('18', '/3@theme.png', '1', null, null);
-INSERT INTO `image` VALUES ('19', '/detail-1@1-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('20', '/detail-2@1-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('21', '/detail-3@1-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('22', '/detail-4@1-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('23', '/detail-5@1-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('24', '/detail-6@1-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('25', '/detail-7@1-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('26', '/detail-8@1-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('27', '/detail-9@1-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('28', '/detail-11@1-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('29', '/detail-10@1-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('31', '/product-rice@1.png', '1', null, null);
-INSERT INTO `image` VALUES ('32', '/product-tea@1.png', '1', null, null);
-INSERT INTO `image` VALUES ('33', '/product-dryfruit@2.png', '1', null, null);
-INSERT INTO `image` VALUES ('36', '/product-dryfruit@3.png', '1', null, null);
-INSERT INTO `image` VALUES ('37', '/product-dryfruit@4.png', '1', null, null);
-INSERT INTO `image` VALUES ('38', '/product-dryfruit@5.png', '1', null, null);
-INSERT INTO `image` VALUES ('39', '/product-dryfruit-a@6.png', '1', null, null);
-INSERT INTO `image` VALUES ('40', '/product-dryfruit@7.png', '1', null, null);
-INSERT INTO `image` VALUES ('41', '/product-rice@2.png', '1', null, null);
-INSERT INTO `image` VALUES ('42', '/product-rice@3.png', '1', null, null);
-INSERT INTO `image` VALUES ('43', '/product-rice@4.png', '1', null, null);
-INSERT INTO `image` VALUES ('44', '/product-fry@1.png', '1', null, null);
-INSERT INTO `image` VALUES ('45', '/product-fry@2.png', '1', null, null);
-INSERT INTO `image` VALUES ('46', '/product-fry@3.png', '1', null, null);
-INSERT INTO `image` VALUES ('47', '/product-tea@2.png', '1', null, null);
-INSERT INTO `image` VALUES ('48', '/product-tea@3.png', '1', null, null);
-INSERT INTO `image` VALUES ('49', '/1@theme-head.png', '1', null, null);
-INSERT INTO `image` VALUES ('50', '/2@theme-head.png', '1', null, null);
-INSERT INTO `image` VALUES ('51', '/3@theme-head.png', '1', null, null);
-INSERT INTO `image` VALUES ('52', '/product-cake@1.png', '1', null, null);
-INSERT INTO `image` VALUES ('53', '/product-cake@2.png', '1', null, null);
-INSERT INTO `image` VALUES ('54', '/product-cake-a@3.png', '1', null, null);
-INSERT INTO `image` VALUES ('55', '/product-cake-a@4.png', '1', null, null);
-INSERT INTO `image` VALUES ('56', '/product-dryfruit@8.png', '1', null, null);
-INSERT INTO `image` VALUES ('57', '/product-fry@4.png', '1', null, null);
-INSERT INTO `image` VALUES ('58', '/product-fry@5.png', '1', null, null);
-INSERT INTO `image` VALUES ('59', '/product-rice@5.png', '1', null, null);
-INSERT INTO `image` VALUES ('60', '/product-rice@7.png', '1', null, null);
-INSERT INTO `image` VALUES ('62', '/detail-12@1-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('63', '/detail-13@1-dryfruit.png', '1', null, null);
-INSERT INTO `image` VALUES ('65', '/banner-4a.png', '1', null, null);
-INSERT INTO `image` VALUES ('66', '/product-vg@4.png', '1', null, null);
-INSERT INTO `image` VALUES ('67', '/product-vg@5.png', '1', null, null);
-INSERT INTO `image` VALUES ('68', '/product-vg@2.png', '1', null, null);
-INSERT INTO `image` VALUES ('69', '/product-vg@3.png', '1', null, null);
 
 -- ----------------------------
 -- Table structure for `order`
@@ -314,121 +245,3 @@ INSERT INTO `product_property` VALUES ('5', '品名', '梨子', '2', null, null)
 INSERT INTO `product_property` VALUES ('6', '产地', '金星', '2', null, null);
 INSERT INTO `product_property` VALUES ('7', '净含量', '100g', '2', null, null);
 INSERT INTO `product_property` VALUES ('8', '保质期', '10天', '2', null, null);
-
--- ----------------------------
--- Table structure for `theme`
--- ----------------------------
-DROP TABLE IF EXISTS `theme`;
-CREATE TABLE `theme` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL COMMENT '专题名称',
-  `description` varchar(255) DEFAULT NULL COMMENT '专题描述',
-  `topic_img_id` int(11) NOT NULL COMMENT '主题图，外键',
-  `delete_time` int(11) DEFAULT NULL,
-  `head_img_id` int(11) NOT NULL COMMENT '专题列表页，头图',
-  `update_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='主题信息表';
-
--- ----------------------------
--- Records of theme
--- ----------------------------
-INSERT INTO `theme` VALUES ('1', '专题栏位一', '美味水果世界', '16', null, '49', null);
-INSERT INTO `theme` VALUES ('2', '专题栏位二', '新品推荐', '17', null, '50', null);
-INSERT INTO `theme` VALUES ('3', '专题栏位三', '做个干物女', '18', null, '18', null);
-
--- ----------------------------
--- Table structure for `theme_product`
--- ----------------------------
-DROP TABLE IF EXISTS `theme_product`;
-CREATE TABLE `theme_product` (
-  `theme_id` int(11) NOT NULL COMMENT '主题外键',
-  `product_id` int(11) NOT NULL COMMENT '商品外键',
-  PRIMARY KEY (`theme_id`,`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='主题所包含的商品';
-
--- ----------------------------
--- Records of theme_product
--- ----------------------------
-INSERT INTO `theme_product` VALUES ('1', '2');
-INSERT INTO `theme_product` VALUES ('1', '5');
-INSERT INTO `theme_product` VALUES ('1', '8');
-INSERT INTO `theme_product` VALUES ('1', '10');
-INSERT INTO `theme_product` VALUES ('1', '12');
-INSERT INTO `theme_product` VALUES ('2', '1');
-INSERT INTO `theme_product` VALUES ('2', '2');
-INSERT INTO `theme_product` VALUES ('2', '3');
-INSERT INTO `theme_product` VALUES ('2', '5');
-INSERT INTO `theme_product` VALUES ('2', '6');
-INSERT INTO `theme_product` VALUES ('2', '16');
-INSERT INTO `theme_product` VALUES ('2', '33');
-INSERT INTO `theme_product` VALUES ('3', '15');
-INSERT INTO `theme_product` VALUES ('3', '18');
-INSERT INTO `theme_product` VALUES ('3', '19');
-INSERT INTO `theme_product` VALUES ('3', '27');
-INSERT INTO `theme_product` VALUES ('3', '30');
-INSERT INTO `theme_product` VALUES ('3', '31');
-
--- ----------------------------
--- Table structure for `third_app`
--- ----------------------------
-DROP TABLE IF EXISTS `third_app`;
-CREATE TABLE `third_app` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `app_id` varchar(64) NOT NULL COMMENT '应用app_id',
-  `app_secret` varchar(64) NOT NULL COMMENT '应用secret',
-  `app_description` varchar(100) DEFAULT NULL COMMENT '应用程序描述',
-  `scope` varchar(20) NOT NULL COMMENT '应用权限',
-  `scope_description` varchar(100) DEFAULT NULL COMMENT '权限描述',
-  `delete_time` int(11) DEFAULT NULL,
-  `update_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='访问API的各应用账号密码表';
-
--- ----------------------------
--- Records of third_app
--- ----------------------------
-INSERT INTO `third_app` VALUES ('1', 'starcraft', '777*777', 'CMS', '32', 'Super', null, null);
-
--- ----------------------------
--- Table structure for `user`
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `openid` varchar(50) NOT NULL,
-  `nickname` varchar(50) DEFAULT NULL,
-  `extend` varchar(255) DEFAULT NULL,
-  `delete_time` int(11) DEFAULT NULL,
-  `create_time` int(11) DEFAULT NULL COMMENT '注册时间',
-  `update_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `openid` (`openid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Records of user
--- ----------------------------
-
--- ----------------------------
--- Table structure for `user_address`
--- ----------------------------
-DROP TABLE IF EXISTS `user_address`;
-CREATE TABLE `user_address` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL COMMENT '收获人姓名',
-  `mobile` varchar(20) NOT NULL COMMENT '手机号',
-  `province` varchar(20) DEFAULT NULL COMMENT '省',
-  `city` varchar(20) DEFAULT NULL COMMENT '市',
-  `country` varchar(20) DEFAULT NULL COMMENT '区',
-  `detail` varchar(100) DEFAULT NULL COMMENT '详细地址',
-  `delete_time` int(11) DEFAULT NULL,
-  `user_id` int(11) NOT NULL COMMENT '外键',
-  `update_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ----------------------------
--- Records of user_address
--- ----------------------------

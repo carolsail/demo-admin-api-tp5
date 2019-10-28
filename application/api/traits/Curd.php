@@ -19,8 +19,8 @@ trait Curd
     }
 
     /**
-     * get
-     * query string param：
+     * method: get
+     *
      * sort: id
      * order: desc
      * offset: 0
