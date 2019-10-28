@@ -19,6 +19,8 @@ trait Curd
     }
 
     /**
+     * get
+     * query string param：
      * sort: id
      * order: desc
      * offset: 0
@@ -32,8 +34,8 @@ trait Curd
         $total = $this->model->where($where)->count();
         $lists = $this->model->where($where)->order($sort, $order)->limit($offset, $limit)->select();
 
-        if ($this->isExtend('indexAjax')) {
-            $lists = $this->repository->indexAjax($lists);
+        if ($this->isExtend('index')) {
+            $lists = $this->repository->index($lists);
         }
         $result = array("total" => $total, "rows" => $lists);
         return json($result);
