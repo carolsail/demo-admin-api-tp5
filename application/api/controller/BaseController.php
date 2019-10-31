@@ -109,10 +109,14 @@ class BaseController extends Controller
                   break;
               case 'RANGE':
               case 'NOT RANGE':
-                  $v = str_replace(' - ', ',', $v);
-                  $arr = array_slice(explode(',', $v), 0, 2);
-                  if (stripos($v, ',') === false || !array_filter($arr)) {
-                      continue;
+                  if (!is_array($v)) {
+                      $v = str_replace(' - ', ',', $v);
+                      $arr = array_slice(explode(',', $v), 0, 2);
+                      if (stripos($v, ',') === false || !array_filter($arr)) {
+                          continue;
+                      }
+                  }else {
+                      $arr = $v;
                   }
                   //当出现一边为空时改变操作符
                   if ($arr[0] === '') {
