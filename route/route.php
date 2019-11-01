@@ -3,6 +3,9 @@
 //Miss 路由开启后，默认的普通模式也将无法访问
 Route::miss('api/v1.Miss/miss');
 
+//upload
+Route::rule('ajax/upload', 'app\api\service\Upload@plupload');
+
 // token
 Route::group('api/:version/token', function () {
     Route::post('/get', 'api/:version.Token/get');

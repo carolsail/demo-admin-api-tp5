@@ -117,6 +117,9 @@ class BaseController extends Controller
                       }
                   }else {
                       $arr = $v;
+                      if(count($arr)==2 && ($arr[0]==$arr[1])){
+                          $arr[1] = $arr[0] . ' 23:59:59';
+                      }
                   }
                   //当出现一边为空时改变操作符
                   if ($arr[0] === '') {
