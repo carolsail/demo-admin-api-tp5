@@ -19,7 +19,7 @@ class BaseController extends Controller
         //初始化各模块
         $controller_name = substr($this->request->controller(), 3);//版本号截掉
         $model = "\\app\\api\\model\\".$controller_name;
-        $repository = "\\api\\share\\repository\\".$controller_name;
+        $repository = "\\app\\api\\repository\\".$controller_name;
         $service = "\\app\\api\\service\\".$controller_name;
         $validator = "\\app\\api\\validator\\".$controller_name;
         $this->model = class_exists($model) ? new $model : null;

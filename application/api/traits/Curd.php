@@ -43,7 +43,7 @@ trait Curd
 
     public function create()
     {
-        $params = input('post.');
+        $params = input('post.data');
         if ($params) {
             if ($this->validator) {
                 $this->validator->goCheck($params);
@@ -62,7 +62,7 @@ trait Curd
 
     public function edit()
     {
-        $params = input('post.');
+        $params = input('post.data');
         if ($params) {
             if (isset($this->validate)) {
                 $this->validate->goCheck($params);

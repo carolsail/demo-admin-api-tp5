@@ -11,7 +11,7 @@ class Token {
 	public static function generateToken(){
 		$randChar = getRandChar(32); 
 		$timestamp = $_SERVER['REQUEST_TIME_FLOAT'];
-		$tokenSalt = config('secure.token_salt');
+		$tokenSalt = config('setting.token_salt');
 		return md5($randChar . $timestamp . $tokenSalt);
 	}
 

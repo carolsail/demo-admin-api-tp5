@@ -6,12 +6,12 @@ Route::miss('api/v1.Miss/miss');
 //upload
 Route::rule('ajax/upload', 'app\api\service\Upload@plupload');
 
-// token
-Route::group('api/:version/token', function () {
-    Route::post('/get', 'api/:version.Token/get');
-    Route::post('/verify', 'api/:version.Token/verify');
-    Route::get('/current', 'api/:version.Token/current');
-    Route::get('/logout', 'api/:version.Token/logout');
+// user && token
+Route::group('api/:version/user', function () {
+    Route::post('/login', 'api/:version.User/login');
+    Route::post('/verify', 'api/:version.User/verify');
+    Route::get('/current', 'api/:version.User/current');
+    Route::get('/logout', 'api/:version.User/logout');
 });
 
 // banner
@@ -23,13 +23,9 @@ Route::group('api/:version/banner', function () {
     Route::get('/info/:id', 'api/:version.Banner/info');
 });
 
-// product
-Route::group('api/:version/product', function () {
-    Route::get('/by_category/paginate', 'api/:version.Product/getByCategory');
-    Route::get('/by_category', 'api/:version.Product/getAllInCategory');
-    Route::get('/:id', 'api/:version.Product/getOne', [], ['id'=>'\d+']);
-    Route::get('/recent', 'api/:version.Product/getRecent');
-});
 
-// category
-Route::get('api/:version/category/all', 'api/:version.Category/getAllCategories');
+// test
+Route::group('api/:version/test', function(){
+    Route::get('/auth', 'api/:version.Test/auth');
+    Route::get('/verify', 'api/:version.Test/verify');
+});
