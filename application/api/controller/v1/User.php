@@ -9,38 +9,24 @@ use app\api\exception\ParameterException;
 
 class User extends BaseController
 {
+    /**
+     * 登录操作
+     * 获取token
+     */
     public function login()
     {
         (new Login())->goCheck();
-        $token = (new UserService())->createToken();
+        $token = (new UserService())->getToken();
         return json(['token'=>$token]);
     }
 
-    public function logout()
-    {
-        $res = Token::tokenClear();
-        return json($res);
-    }
-
     /**
-     * 验证token是否存在
+     * 验证token
+     * 返回当前token用户登录信息
      */
     public function verify($token = '')
     {
-        if (!$token) {
-            throw new ParameterException();
-        }
-        $valid = Token::verifyToken($token);
-        return json(['isValid' => $valid]);
-    }
-
-    /**
-     * 获取当前token用户登录信息
-     */
-    public function current()
-    {
-        $keys = ['username', 'name', 'avatar', 'email', 'mobile', 'scope'];
-        $res = Token::getCurrentIdentity($keys);
+        $res = UserService::verifyToken();
         return json($res);
     }
 }

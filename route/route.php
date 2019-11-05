@@ -9,9 +9,7 @@ Route::rule('ajax/upload', 'app\api\service\Upload@plupload');
 // user && token
 Route::group('api/:version/user', function () {
     Route::post('/login', 'api/:version.User/login');
-    Route::post('/verify', 'api/:version.User/verify');
-    Route::get('/current', 'api/:version.User/current');
-    Route::get('/logout', 'api/:version.User/logout');
+    Route::get('/verify', 'api/:version.User/verify');
 });
 
 // banner
@@ -25,7 +23,8 @@ Route::group('api/:version/banner', function () {
 
 
 // test
-Route::group('api/:version/test', function(){
+Route::group('api/:version/test', function () {
     Route::get('/auth', 'api/:version.Test/auth');
     Route::get('/verify', 'api/:version.Test/verify');
+    Route::get('/random', 'api/:version.Test/random');
 });

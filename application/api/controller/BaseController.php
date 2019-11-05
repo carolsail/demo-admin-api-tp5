@@ -3,7 +3,7 @@
 namespace app\api\controller;
 
 use think\Controller;
-use app\api\service\Token;
+use app\api\service\User;
 use app\api\traits\Curd;
 
 class BaseController extends Controller
@@ -31,13 +31,13 @@ class BaseController extends Controller
     //检查cms权限
     public function checkSuperScope()
     {
-        Token::needSuperScope();
+        User::needSuperScope();
     }
     
     //检查用户级别以上权限
     public function checkPrimaryScope()
     {
-        Token::needPrimaryScope();
+        User::needPrimaryScope();
     }
   
 
