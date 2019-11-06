@@ -52,6 +52,30 @@ class User extends Token
         return (array)$data;
     }
 
+    // 刷新token
+    public static function refreshToken() {
+        $data = self::decoded();
+        $row = (new UserRepository)->getRowById($data->id);
+        try {
+            // 刷新局部盐
+            $salt = Random::alnum(6);
+            $row->salt = $salt;
+            $row->save();
+            $data = [
+                'id' => $row->id,
+                'username' => $row->username,
+                'avatar' => $row->avatar,
+                'name' => $row->name,
+                'email' => $row->email,
+                'scope' => $row->scope,
+                'salt' => $salt
+            ];
+            return self::encoded($data, config('setting.token_expire_in'));
+        } catch (\Exception $e) {
+            throw new ParameterException(['msg' => $e->getMessage()]);
+        }
+    }
+
     // cms专有权限
     public static function needSuperScope()
     {

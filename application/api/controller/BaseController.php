@@ -18,7 +18,7 @@ class BaseController extends Controller
     {
         //初始化各模块
         $controller_name = substr($this->request->controller(), 3);//版本号截掉
-        $model = "\\app\\api\\model\\".$controller_name;
+        $model = "\\app\\common\\model\\".$controller_name;
         $repository = "\\app\\api\\repository\\".$controller_name;
         $service = "\\app\\api\\service\\".$controller_name;
         $validator = "\\app\\api\\validator\\".$controller_name;
@@ -40,7 +40,6 @@ class BaseController extends Controller
         User::needPrimaryScope();
     }
   
-
     /**
     * 生成查询所需要的条件,排序方式
     * 參數autoSql代表是否開啟自動where
@@ -115,9 +114,9 @@ class BaseController extends Controller
                       if (stripos($v, ',') === false || !array_filter($arr)) {
                           continue;
                       }
-                  }else {
+                  } else {
                       $arr = $v;
-                      if(count($arr)==2 && ($arr[0]==$arr[1])){
+                      if (count($arr)==2 && ($arr[0]==$arr[1])) {
                           $arr[1] = $arr[0] . ' 23:59:59';
                       }
                   }

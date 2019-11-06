@@ -9,6 +9,10 @@ use app\api\exception\ParameterException;
 
 class User extends BaseController
 {
+    protected $beforeActionList = [
+        'checkSuperScope' => ['except' => 'login,verify']
+    ];
+
     /**
      * 登录操作
      * 获取token
@@ -24,9 +28,18 @@ class User extends BaseController
      * 验证token
      * 返回当前token用户登录信息
      */
-    public function verify($token = '')
+    public function verify()
     {
         $res = UserService::verifyToken();
         return json($res);
+    }
+
+    /**
+     * 刷新token
+     */
+    public function refresh()
+    {
+        $token = UserService::refreshToken();
+        return json(['token'=>$token]);
     }
 }

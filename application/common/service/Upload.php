@@ -1,5 +1,5 @@
 <?php
-namespace app\api\service;
+namespace app\common\service;
 
 use think\Controller;
 use think\facade\Env;
@@ -90,5 +90,3 @@ class Upload extends Controller
         }
     }
 }
-
-

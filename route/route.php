@@ -4,12 +4,14 @@
 Route::miss('api/v1.Miss/miss');
 
 //upload
-Route::rule('ajax/upload', 'app\api\service\Upload@plupload');
+Route::rule('ajax/upload', 'app\common\service\Upload@plupload');
 
 // user && token
 Route::group('api/:version/user', function () {
     Route::post('/login', 'api/:version.User/login');
     Route::get('/verify', 'api/:version.User/verify');
+    Route::get('/refresh', 'api/:version.User/refresh');
+    Route::post('/edit', 'api/:version.User/edit');
 });
 
 // banner
