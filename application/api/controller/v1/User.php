@@ -42,4 +42,14 @@ class User extends BaseController
         $token = UserService::refreshToken();
         return json(['token'=>$token]);
     }
+
+    /**
+     * 修改数据
+     */
+    public function change($type='password')
+    {
+        if ($type=='password') {
+            UserService::changePassword(input('post.'));
+        }
+    }
 }

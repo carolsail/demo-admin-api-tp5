@@ -12,6 +12,7 @@ Route::group('api/:version/user', function () {
     Route::get('/verify', 'api/:version.User/verify');
     Route::get('/refresh', 'api/:version.User/refresh');
     Route::post('/edit', 'api/:version.User/edit');
+    Route::post('/change/:type', 'api/:version.User/change');
 });
 
 // banner

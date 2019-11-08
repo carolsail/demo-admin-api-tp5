@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50547
 File Encoding         : 65001
 
-Date: 2019-11-05 17:45:12
+Date: 2019-11-08 18:17:32
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,13 +31,13 @@ CREATE TABLE `banner` (
   `update_time` int(11) DEFAULT NULL,
   `delete_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COMMENT='banner管理表';
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COMMENT='banner管理表';
 
 -- ----------------------------
 -- Records of banner
 -- ----------------------------
-INSERT INTO `banner` VALUES ('1', '首页置顶', '首页轮播图', '', '', null, '1', '1559203982', '1572839714', null);
-INSERT INTO `banner` VALUES ('2', '111', '111des', '/uploads/20191104/2b28fb3cd663ef7917ab57cb6f4feec1.jpg', '', null, '1', '1559203982', '1572839678', null);
+INSERT INTO `banner` VALUES ('1', '首页置顶', '首页轮播图', '/uploads/20191106/2b28fb3cd663ef7917ab57cb6f4feec1.jpg', '', null, '1', '1559203982', '1572839714', null);
+INSERT INTO `banner` VALUES ('2', '111', '111des', '/uploads/20191104/2b28fb3cd663ef7917ab57cb6f4feec1.jpg', '', null, '1', '1559203982', '1573117205', '1573117205');
 INSERT INTO `banner` VALUES ('3', '2gg', 'ggdesgg11', '', null, null, '1', '1559203982', '1572839760', '1572839760');
 INSERT INTO `banner` VALUES ('4', '222', '221des', '', null, null, '1', '1571996595', '1572839760', '1572839760');
 INSERT INTO `banner` VALUES ('5', '333', null, '', null, null, '1', '1571996398', '1572839678', '1572839678');
@@ -53,7 +53,10 @@ INSERT INTO `banner` VALUES ('14', '个地方官', null, '', null, null, '1', '1
 INSERT INTO `banner` VALUES ('15', '5552268', null, '', null, null, '1', '1559203982', '1572839673', '1572839673');
 INSERT INTO `banner` VALUES ('16', 'test', '', '/uploads/20191104/2b28fb3cd663ef7917ab57cb6f4feec1.jpg', '', null, '1', '1572834272', '1572839673', '1572839673');
 INSERT INTO `banner` VALUES ('17', 'hhh1', 'sdf', '/uploads/20191104/2b28fb3cd663ef7917ab57cb6f4feec1.jpg', '', null, '1', '1572835461', '1572839674', '1572839674');
-INSERT INTO `banner` VALUES ('18', 'test', '', '', '', null, '1', '1572947065', '1572947065', null);
+INSERT INTO `banner` VALUES ('18', 'test', '', '/uploads/20191106/2b28fb3cd663ef7917ab57cb6f4feec1.jpg', '', null, '1', '1572947065', '1573117208', '1573117208');
+INSERT INTO `banner` VALUES ('19', 'test188123', '<p><strong>tes</strong></p>', '', 'testssss', null, '0', '1573027968', '1573027968', null);
+INSERT INTO `banner` VALUES ('20', '123', '', '', '123', null, '1', '1573099397', '1573099402', '1573099402');
+INSERT INTO `banner` VALUES ('21', '123123t', '<p>test</p>', '/uploads/20191108/2b28fb3cd663ef7917ab57cb6f4feec1.jpg', '', null, '1', '1573114891', '1573114891', null);
 
 -- ----------------------------
 -- Table structure for `user`
@@ -79,5 +82,5 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'admin', 'd779fa52b55d856d871ec5f4bcbe996f', 'sail', '32', null, 'admin@test.com', '12345678', 'xh8cfe', null, '1572947052', null);
+INSERT INTO `user` VALUES ('1', 'admin', 'admin', 'd779fa52b55d856d871ec5f4bcbe996f', 'carolsail', '32', '/uploads/20191108/2b28fb3cd663ef7917ab57cb6f4feec1.jpg', 'admin@test.com', '12345678', '0cYxOz', null, '1573204008', null);
 INSERT INTO `user` VALUES ('2', 'editor', 'editor', 'd779fa52b55d856d871ec5f4bcbe996f', 'editor', '16', null, null, null, 'GizQ87', null, '1572946735', null);

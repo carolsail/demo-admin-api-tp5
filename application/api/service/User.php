@@ -53,7 +53,8 @@ class User extends Token
     }
 
     // 刷新token
-    public static function refreshToken() {
+    public static function refreshToken()
+    {
         $data = self::decoded();
         $row = (new UserRepository)->getRowById($data->id);
         try {
@@ -108,15 +109,35 @@ class User extends Token
         }
     }
 
-    /** 
+    /**
      * 修改局部盐，强制让指定用户下线
      */
     public function updateSalt($id)
     {
         $row = (new UserRepository)->getRowById($id);
-        if($row){
+        if ($row) {
             $row->salt = '';
             $row->save();
         }
+    }
+
+    /**
+     * 修改密码
+     */
+    public static function changePassword($data)
+    {
+        $token = self::decoded();
+        $row = (new UserRepository)->getRowById($token->id);
+        if (!$row) {
+            throw new ParameterException();
+        }
+        if(md5_trim_pwd($data['old']) !== $row['password']){
+            throw new ParameterException(['msg' => '旧密码有误']);
+        }
+        if(md5_trim_pwd($data['new']) !== md5_trim_pwd($data['repeat'])){
+            throw new ParameterException(['msg' => '两次新密码不一致']);
+        }
+        $row->password = md5_trim_pwd($data['new']);
+        $row->save();
     }
 }
