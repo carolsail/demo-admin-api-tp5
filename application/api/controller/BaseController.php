@@ -108,10 +108,16 @@ class BaseController extends Controller
                   break;
               case 'RANGE':
               case 'NOT RANGE':
-                  $v = str_replace(' - ', ',', $v);
-                  $arr = array_slice(explode(',', $v), 0, 2);
-                  if (stripos($v, ',') === false || !array_filter($arr)) {
-                      continue;
+                //   $v = str_replace(' - ', ',', $v);
+                //   $arr = array_slice(explode(',', $v), 0, 2);
+                //   if (stripos($v, ',') === false || !array_filter($arr)) {
+                //       continue;
+                //   }
+                  $arr = [];
+                  if (is_array($v) && count($v)===2) {
+                      $v[0] .= '00:00:00';
+                      $v[1] .= '23:59:59';
+                      $arr = $v;
                   }
                   //当出现一边为空时改变操作符
                   if ($arr[0] === '') {
