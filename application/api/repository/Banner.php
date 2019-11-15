@@ -21,4 +21,10 @@ class Banner
             $row->allowField(true)->force()->save($data);
         }
     }
+
+    public function getExportRows($where)
+    {
+        $rows = BannerModel::where($where)->select();
+        return $rows;
+    }
 }

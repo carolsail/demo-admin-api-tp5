@@ -28,13 +28,13 @@ class Token
             $arr = (array)$decoded;
             return $arr['data'];
         } catch (\Firebase\JWT\SignatureInvalidException $e) {  //签名不正确
-            throw new TokenException(['msg'=>$e->getMessage()]);
+            throw new TokenException(['msg'=>'token err:'.$e->getMessage()]);
         } catch (\Firebase\JWT\BeforeValidException $e) {  // 签名在某个时间点之后才能用
-            throw new TokenException(['msg'=>$e->getMessage()]);
+            throw new TokenException(['msg'=>'token err:'.$e->getMessage()]);
         } catch (\Firebase\JWT\ExpiredException $e) {  // token过期
-            throw new TokenException(['msg'=>$e->getMessage()]);
+            throw new TokenException(['msg'=>'token err:'.$e->getMessage()]);
         } catch (\Exception $e) {  //其他错误
-            throw new TokenException(['msg'=>$e->getMessage()]);
+            throw new TokenException(['msg'=>'token err:'.$e->getMessage()]);
         }
     }
 }

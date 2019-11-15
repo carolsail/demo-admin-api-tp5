@@ -22,6 +22,7 @@ Route::group('api/:version/banner', function () {
     Route::post('/edit', 'api/:version.Banner/edit');
     Route::get('/delete', 'api/:version.Banner/delete');
     Route::get('/info/:id', 'api/:version.Banner/info');
+    Route::get('/export', 'api/:version.Banner/export');
 });
 
 
